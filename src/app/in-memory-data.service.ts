@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
-import { Observable } from 'rxjs';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Hero } from './hero';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InMemoryDataService implements InMemoryDbService {
-  constructor() {}
-
-  createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
+  createDb() {
     const heroes = [
       { id: 11, name: 'Dr Nice' },
       { id: 12, name: 'Narco' },
@@ -22,11 +19,10 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 19, name: 'Magma' },
       { id: 20, name: 'Tornado' },
     ];
-
-    return heroes;
+    return { heroes };
   }
 
-  getId(heroes: Hero[]): number {
+  genId(heroes: Hero[]): number {
     return heroes.length > 0
       ? Math.max(...heroes.map((hero) => hero.id)) + 1
       : 11;

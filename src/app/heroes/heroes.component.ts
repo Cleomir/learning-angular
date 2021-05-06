@@ -6,14 +6,14 @@ import { HeroService } from '../hero.service';
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.scss'],
+  styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[] = [];
+  heroes?: Hero[];
 
   constructor(private heroService: HeroService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getHeroes();
   }
 
@@ -26,14 +26,13 @@ export class HeroesComponent implements OnInit {
     if (!name) {
       return;
     }
-
     this.heroService.addHero({ name } as Hero).subscribe((hero) => {
-      this.heroes.push(hero);
+      this.heroes!.push(hero);
     });
   }
 
   delete(hero: Hero): void {
-    this.heroes = this.heroes.filter((heroItem) => heroItem !== hero);
+    this.heroes = this.heroes!.filter((storedHeroes) => storedHeroes !== hero);
     this.heroService.deleteHero(hero.id).subscribe();
   }
 }
